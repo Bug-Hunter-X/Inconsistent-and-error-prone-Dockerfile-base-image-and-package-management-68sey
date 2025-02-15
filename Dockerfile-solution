@@ -1,0 +1,6 @@
+FROM ubuntu:22.04
+RUN apt-get update && apt-get install -y python3 python3-pip && apt-get clean && apt-get autoremove || exit 1 
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
+COPY . .
+ENTRYPOINT ["/bin/sh", "-c", "if python3 ./app.py; then exit 0; else exit 1; fi "]
